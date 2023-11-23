@@ -1,0 +1,1 @@
+from .discordapplicationcommands import DiscordApplicationCommands

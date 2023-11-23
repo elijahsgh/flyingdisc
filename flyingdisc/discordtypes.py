@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from enum import Enum
 from xmlrpc.client import Boolean
-from pydantic import BaseModel, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 
 from typing import Any, Dict, List, Optional
 
@@ -338,18 +338,19 @@ class ApplicationCommandType(int, Enum):
 
 
 class ApplicationCommand(BaseModel):
-    id: Optional[int]
-    type: Optional[ApplicationCommandType] = 1
-    application_id: int
-    guild_id: Optional[int]
     name: str
-    name_localizations: Optional[Any]  # Not implemented
     description: str
-    description_localizations: Optional[Any]  # Not implemeneted
-    options: Optional[List[ApplicationCommandOption]]
+
+    id: Optional[int] = None
+    type: Optional[ApplicationCommandType] = 1
+    application_id: Optional[int] = None
+    guild_id: Optional[int] = None
+    name_localizations: Optional[Any] = None # Not implemented
+    description_localizations: Optional[Any] = None # Not implemeneted
+    options: Optional[List[ApplicationCommandOption]] = None
     default_member_permissions: Optional[str] = 0  # Limit to admins by default
-    dm_permissions: Optional[Boolean]
-    version: Optional[int]
+    dm_permissions: Optional[Boolean] = None
+    version: Optional[int] = 0
 
 
 class ClientCredentialsAccessTokenResponse(BaseModel):
