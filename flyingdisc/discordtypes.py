@@ -67,6 +67,7 @@ class UserFlags(int, Enum):
     VERIFIED_BOT = 1 << 16
     EARLY_VERIFIED_BOT_DEVELOPER = 1 << 17
 
+
 class EmbedFooter(BaseModel):
     text: str
     icon_url: Optional[str]
@@ -125,8 +126,7 @@ class EmbedObject(BaseModel):
     video: Optional[EmbedVideo]
     provider: Optional[EmbedProvider]
     author: Optional[EmbedAuthor]
-    fields_: Optional[List[EmbedField]] = Field(..., alias='fields')
-
+    fields_: Optional[List[EmbedField]] = Field(..., alias="fields")
 
 
 class AllowedMentions(BaseModel):
@@ -345,8 +345,8 @@ class ApplicationCommand(BaseModel):
     type: Optional[ApplicationCommandType] = 1
     application_id: Optional[int] = None
     guild_id: Optional[int] = None
-    name_localizations: Optional[Any] = None # Not implemented
-    description_localizations: Optional[Any] = None # Not implemeneted
+    name_localizations: Optional[Any] = None  # Not implemented
+    description_localizations: Optional[Any] = None  # Not implemeneted
     options: Optional[List[ApplicationCommandOption]] = None
     default_member_permissions: Optional[str] = 0  # Limit to admins by default
     dm_permissions: Optional[Boolean] = None
@@ -373,6 +373,26 @@ class ButtonStyles(int, Enum):
     SUCCESS = 3
     DANGER = 4
     LINK = 5
+
+
+class ApplicationRoleConnectionMetadataType(int, Enum):
+    INTEGER_LESS_THAN_OR_EQUAL = 1
+    INTEGER_GREATER_THAN_OR_EQUAL = 2
+    INTEGER_EQUAL = 3
+    INTEGER_NOT_EQUAL = 4
+    DATETIME_LESS_THAN_OR_EQUAL = 5
+    DATETIME_GREATER_THAN_OR_EQUAL = 6
+    BOOLEAN_EQUAL = 7
+    BOOLEAN_NOT_EQUAL = 8
+
+
+class ApplicationRoleConnectionMetadata(BaseModel):
+    type: ApplicationRoleConnectionMetadataType
+    key: str
+    name: str
+    name_localizations: Optional[dict]
+    description: str
+    description_localizations: Optional[dict]
 
 
 Message.model_rebuild()

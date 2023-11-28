@@ -2,7 +2,8 @@ from flyingdisc.discordtypes import (
     ApplicationCommand,
 )
 
-class DiscordApplicationCommands():
+
+class DiscordApplicationCommands:
     def __init__(self):
         self.commands = {}
 
@@ -12,7 +13,7 @@ class DiscordApplicationCommands():
                 response = function(*args, **kwargs)
                 return response
 
-            self.commands['name'] = {
+            self.commands["name"] = {
                 "function": wrapped,
                 "name": app_cmd.name,
                 "description": app_cmd.description,
