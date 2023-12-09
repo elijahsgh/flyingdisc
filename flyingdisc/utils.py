@@ -1,7 +1,5 @@
 import logging
 
-from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
-from cryptography.exceptions import InvalidSignature
 from fastapi import (
     HTTPException,
     Header,
@@ -14,8 +12,11 @@ class DiscordSignedRequest:
         self.public_key = public_key
 
     async def sigverify(self, signature: str, timestamp: str, body: str):
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+        from cryptography.exceptions import InvalidSignature
+
         verify_key = Ed25519PublicKey.from_public_bytes(bytes.fromhex(self.public_key))
-        verify_key.verify(bytes.fromhex(signature), timestamp.encode() + body)
+        verify_key.verify(bytes.fromhex(signature), timestamp.encode('utf-8') + body)
 
     async def signed_request(
         self,
