@@ -32,6 +32,7 @@ class DiscordSignedRequest:
         except Exception as e:
             logger = logging.getLogger("uvicorn.error")
             logger.error(f"Signature failure exception: {e.__repr__()}")
+            logger.error(f"{self.public_key} {x_signature_ed25519} {x_signature_timestamp} {body}")
             raise HTTPException(status_code=401, detail="Invalid signature")
 
         return True
