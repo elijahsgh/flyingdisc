@@ -22,9 +22,12 @@ class DiscordApplicationCommands:
         }
 
         for guild in guilds:
-            commands_url = f"https://discord.com/api/v10/applications/{app_id}/guilds/{guild}/commands"
-
             for command in self.commands.keys():
+                if self.commands[command]["isglobal"]:
+                    commands_url = f"https://discord.com/api/v10/applications/{app_id}/commands"
+                else:
+                    commands_url = f"https://discord.com/api/v10/applications/{app_id}/guilds/{guild}/commands"
+
                 r = requests.post(commands_url, headers=headers, json={
                     "name": self.commands[command]["name"],
                     "description": self.commands[command]["description"],
@@ -34,7 +37,7 @@ class DiscordApplicationCommands:
                 r.raise_for_status()
 
 
-    def command(self, app_cmd: ApplicationCommand):
+    def command(self, isglobal: False, app_cmd: ApplicationCommand):
         def wrap(function):
             def wrapped(*args, **kwargs):
                 response = function(*args, **kwargs)
@@ -42,6 +45,7 @@ class DiscordApplicationCommands:
 
             self.commands[app_cmd.name] = {
                 "function": wrapped,
+                "isglobal": isglobal,
                 "name": app_cmd.name,
                 "description": app_cmd.description,
                 "type": app_cmd.type,
