@@ -70,62 +70,62 @@ class UserFlags(int, Enum):
 
 class EmbedFooter(BaseModel):
     text: str
-    icon_url: Optional[str]
-    proxy_icon_url: Optional[str]
+    icon_url: Optional[str] = None
+    proxy_icon_url: Optional[str] = None
 
 
 class EmbedImage(BaseModel):
-    url: Optional[str]
-    proxy_url: Optional[str]
-    height: Optional[int]
-    width: Optional[int]
+    url: Optional[str] = None
+    proxy_url: Optional[str] = None
+    height: Optional[int] = None
+    width: Optional[int] = None
 
 
 class EmbedThumbnail(BaseModel):
-    url: Optional[str]
-    proxy_url: Optional[str]
-    height: Optional[int]
-    width: Optional[int]
+    url: Optional[str] = None
+    proxy_url: Optional[str] = None
+    height: Optional[int] = None
+    width: Optional[int] = None
 
 
 class EmbedVideo(BaseModel):
-    url: Optional[str]
-    proxy_url: Optional[str]
-    height: Optional[int]
-    width: Optional[int]
+    url: Optional[str] = None
+    proxy_url: Optional[str] = None
+    height: Optional[int] = None
+    width: Optional[int] = None
 
 
 class EmbedProvider(BaseModel):
-    name: Optional[str]
-    url: Optional[str]
+    name: Optional[str] = None
+    url: Optional[str] = None
 
 
 class EmbedAuthor(BaseModel):
-    name: Optional[str]
-    url: Optional[str]
-    icon_url: Optional[str]
-    proxy_icon_url: Optional[str]
+    name: Optional[str] = None
+    url: Optional[str] = None
+    icon_url: Optional[str] = None
+    proxy_icon_url: Optional[str] = None
 
 
 class EmbedField(BaseModel):
     name: str
     value: str
-    inline: Optional[bool]
+    inline: Optional[bool] = None
 
 
 class EmbedObject(BaseModel):
-    title: Optional[str]
+    title: Optional[str] = None
     type: str = "rich"
-    description: Optional[str]
-    url: Optional[str]
-    timestamp: Optional[str]  # TODO: Make this a real ISO8601 timestamp type
-    color: Optional[int]
-    footer: Optional[EmbedFooter]
-    image: Optional[EmbedImage]
-    thumbnail: Optional[EmbedThumbnail]
-    video: Optional[EmbedVideo]
-    provider: Optional[EmbedProvider]
-    author: Optional[EmbedAuthor]
+    description: Optional[str] = None
+    url: Optional[str] = None
+    timestamp: Optional[str] = None # TODO: Make this a real ISO8601 timestamp type
+    color: Optional[int] = None
+    footer: Optional[EmbedFooter] = None
+    image: Optional[EmbedImage] = None
+    thumbnail: Optional[EmbedThumbnail] = None
+    video: Optional[EmbedVideo] = None
+    provider: Optional[EmbedProvider] = None
+    author: Optional[EmbedAuthor] = None
     fields_: Optional[List[EmbedField]] = Field(..., alias="fields")
 
 
@@ -147,17 +147,17 @@ class CommandCallbackDataFlags(int, Enum):
 
 class Component(BaseModel):
     type: ComponentTypes
-    components: Optional[List[Component]]
-    label: Optional[str]
-    style: Optional[int]
-    custom_id: Optional[str]
-    disabled: Optional[Boolean]
-    emoji: Optional[Any]  # emoji type not implemented
-    label: Optional[str]
-    max_values: Optional[int]
-    min_values: Optional[int]
-    url: Optional[str]
-    options: Optional[List[Any]]
+    components: Optional[List[Component]] = None
+    label: Optional[str] = None
+    style: Optional[int] = None
+    custom_id: Optional[str] = None
+    disabled: Optional[Boolean] = None
+    emoji: Optional[Any] = None  # emoji type not implemented
+    label: Optional[str] = None
+    max_values: Optional[int] = None
+    min_values: Optional[int] = None
+    url: Optional[str] = None
+    options: Optional[List[Any]] = None
 
 
 class InteractionApplicationCommandCallbackData(BaseModel):
@@ -167,11 +167,11 @@ class InteractionApplicationCommandCallbackData(BaseModel):
 
     tts: Optional[bool] = False
     content: Optional[str] = None
-    embeds: Optional[List[EmbedObject]]
-    allowed_mentions: Optional[AllowedMentions]
-    flags: Optional[CommandCallbackDataFlags]  # Set to 64 for user-only message
-    components: Optional[List[Component]]  # TODO: Type not implemented
-    attachments: Optional[List[Any]]  # TODO: Type not implemeneted
+    embeds: Optional[List[EmbedObject]] = None
+    allowed_mentions: Optional[AllowedMentions] = None
+    flags: Optional[CommandCallbackDataFlags] = None  # Set to 64 for user-only message
+    components: Optional[List[Component]] = None  # TODO: Type not implemented
+    attachments: Optional[List[Any]] = None  # TODO: Type not implemeneted
 
     # for modals
     custom_id: Optional[str] = None
@@ -187,7 +187,7 @@ class InteractionResponse(BaseModel):
     type: Optional[
         InteractionCallbackType
     ] = InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE
-    data: Optional[InteractionApplicationCommandCallbackData]
+    data: Optional[InteractionApplicationCommandCallbackData] = None
 
 
 class User(BaseModel):
@@ -195,22 +195,22 @@ class User(BaseModel):
     username: str
     discriminator: str
     avatar: str = None
-    bot: Optional[bool]
-    system: Optional[bool]
-    mfa_enabled: Optional[bool]
-    locale: Optional[str]
-    verified: Optional[bool]
-    email: Optional[str]
-    flags: Optional[int]
-    premium_type: Optional[NitroType]
-    public_flags: Optional[int]
+    bot: Optional[bool] = None 
+    system: Optional[bool] = None
+    mfa_enabled: Optional[bool] = None
+    locale: Optional[str] = None
+    verified: Optional[bool] = None
+    email: Optional[str] = None
+    flags: Optional[int] = None
+    premium_type: Optional[NitroType] = None
+    public_flags: Optional[int] = None
 
 
 class MessageReference(BaseModel):
-    message_id: Optional[int]
-    channel_id: Optional[int]
-    guild_id: Optional[int]
-    fail_if_not_exists: Optional[Boolean]
+    message_id: Optional[int] = None
+    channel_id: Optional[int] = None
+    guild_id: Optional[int] = None
+    fail_if_not_exists: Optional[Boolean] = None
 
 
 class Message(BaseModel):
@@ -219,57 +219,57 @@ class Message(BaseModel):
         return super().dict(*args, **kwargs)
 
     id: Optional[int]
-    channel_id: Optional[int]
-    guild_id: Optional[int]
-    author: Optional[User]  # user
-    member: Optional[Any]  # partial Guild Member object
-    content: Optional[str]
-    timestamp: Optional[str]  # ISO8601 timestamp
+    channel_id: Optional[int] = None
+    guild_id: Optional[int] = None
+    author: Optional[User] = None  # user
+    member: Optional[Any] = None  # partial Guild Member object
+    content: Optional[str] = None
+    timestamp: Optional[str] = None  # ISO8601 timestamp
     edited_timestamp: Optional[str] = None  # ISO8601 timestamp
-    tts: Optional[Boolean]
-    mention_everyone: Optional[Boolean]
-    mentions: Optional[List[Any]]
-    mention_roles: Optional[List[Any]]
-    mention_channels: Optional[List[Any]]
-    attachments: Optional[List[Any]]
-    embeds: Optional[List[Any]]
-    reactions: Optional[List[Any]]
-    nonce: Optional[str]
-    pinned: Optional[bool]
-    webhook_id: Optional[int]
-    type: Optional[int]
-    activity: Optional[Any]
-    application: Optional[Any]
-    application_id: Optional[int]
-    message_reference: Optional[Any]
-    flags: Optional[int]
-    referenced_message: Optional[Any]
-    message_reference: Optional[MessageReference]
-    interaction: Optional[Interaction]
-    thread: Optional[Any]
-    components: Optional[List[Component]]
-    sticker_items: Optional[List[Any]]
-    stickers: Optional[List[Any]]
-    interaction: Optional[Interaction]
+    tts: Optional[Boolean] = None
+    mention_everyone: Optional[Boolean] = None
+    mentions: Optional[List[Any]] = None
+    mention_roles: Optional[List[Any]] = None
+    mention_channels: Optional[List[Any]] = None
+    attachments: Optional[List[Any]] = None
+    embeds: Optional[List[Any]] = None
+    reactions: Optional[List[Any]] = None
+    nonce: Optional[str] = None
+    pinned: Optional[bool] = None
+    webhook_id: Optional[int] = None
+    type: Optional[int] = None
+    activity: Optional[Any] = None
+    application: Optional[Any] = None
+    application_id: Optional[int] = None
+    message_reference: Optional[Any] = None
+    flags: Optional[int] = None
+    referenced_message: Optional[Any] = None
+    message_reference: Optional[MessageReference] = None
+    interaction: Optional[Interaction] = None
+    thread: Optional[Any] = None
+    components: Optional[List[Component]] = None
+    sticker_items: Optional[List[Any]] = None
+    stickers: Optional[List[Any]] = None
+    interaction: Optional[Interaction] = None
 
 
 class GuildMember(BaseModel):
-    user: Optional[User]
-    nick: Optional[str]
+    user: Optional[User] = None
+    nick: Optional[str] = None
     roles: List[int]
     joined_at: str  # TODO: This is ISO8601 timestamp
-    premium_since: Optional[str]  # TODO: This is ISO8601 timestamp
+    premium_since: Optional[str] = None  # TODO: This is ISO8601 timestamp
     deaf: bool
     mute: bool
-    pending: Optional[bool]
-    permissions: Optional[str]
+    pending: Optional[bool] = None
+    permissions: Optional[str] = None
 
 
 class ApplicationCommandInteractionDataOption(BaseModel):
     name: str
     value: Any
     type: ApplicationCommandOptionType
-    options: Optional[List[ApplicationCommandInteractionDataOption]]
+    options: Optional[List[ApplicationCommandInteractionDataOption]] = None
 
 
 class ResolvedData(BaseModel):
@@ -278,43 +278,43 @@ class ResolvedData(BaseModel):
 
 
 class ApplicationCommandInteractionData(BaseModel):
-    id: Optional[int]
-    name: Optional[str]
-    options: Optional[List[ApplicationCommandInteractionDataOption]]
+    id: Optional[int] = None
+    name: Optional[str] = None
+    options: Optional[List[ApplicationCommandInteractionDataOption]] = None
 
     # for message components
-    custom_id: Optional[str]
-    component_type: Optional[ComponentTypes]
-    values: Optional[List[str]]
+    custom_id: Optional[str] = None
+    component_type: Optional[ComponentTypes] = None
+    values: Optional[List[str]] = None
 
     # User Commands and Message Commands, see ResolvedData
-    resolved: Optional[Dict]
+    resolved: Optional[Dict] = None
 
 
 class SelectOption(BaseModel):
     label: str
     value: str
-    description: Optional[str]
+    description: Optional[str] = None
     # Needs partial Emoji
-    emoji: Optional[Any]
-    default: Optional[Boolean]
+    emoji: Optional[Any] = None
+    default: Optional[Boolean] = None
 
 
 class Interaction(BaseModel):
     id: int
-    name: str | None = None
+    name: Optional[str] = None
     application_id: int = None
     type: InteractionType
-    data: ApplicationCommandInteractionData | None = None
-    guild_id: int | None = None
-    channel_id: int | None = None
-    member: GuildMember | None = None
-    user: User | None = None
+    data: Optional[ApplicationCommandInteractionData] = None
+    guild_id: Optional[int] = None
+    channel_id: Optional[int] = None
+    member: Optional[GuildMember] = None
+    user: Optional[User] = None
     token: str = None
     version: int = 1
-    message: Message | None = None
-    locale: Any | None = None
-    guild_locale: Any | None = None
+    message: Optional[Message] = None
+    locale: Optional[Any] = None
+    guild_locale: Optional[Any] = None
 
 
 class ApplicationCommandOptionChoice(BaseModel):
@@ -326,8 +326,8 @@ class ApplicationCommandOption(BaseModel):
     type: ApplicationCommandOptionType
     name: str
     description: str
-    required: Optional[Boolean]
-    choices: Optional[List[ApplicationCommandOptionChoice]]
+    required: Optional[Boolean] = None
+    choices: Optional[List[ApplicationCommandOptionChoice]] = None
     options: Optional[List[ApplicationCommandOption]] = None
 
 
@@ -390,9 +390,9 @@ class ApplicationRoleConnectionMetadata(BaseModel):
     type: ApplicationRoleConnectionMetadataType
     key: str
     name: str
-    name_localizations: Optional[dict]
+    name_localizations: Optional[dict] = None
     description: str
-    description_localizations: Optional[dict]
+    description_localizations: Optional[dict] = None
 
 
 Message.model_rebuild()
