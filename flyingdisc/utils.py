@@ -13,7 +13,7 @@ class DiscordSignedRequest:
     def __init__(self, public_key):
         self.public_key = public_key
 
-    async def sigverify(self, public_key: str, signature: str, timestamp: str, body: str):
+    async def sigverify(self, signature: str, timestamp: str, body: str):
         verify_key = Ed25519PublicKey.from_public_bytes(bytes.fromhex(self.public_key))
         verify_key.verify(bytes.fromhex(signature), timestamp.encode() + body)
 
@@ -27,7 +27,7 @@ class DiscordSignedRequest:
 
         try:
             await self.sigverify(
-                self.public_key, x_signature_ed25519, x_signature_timestamp, body
+                x_signature_ed25519, x_signature_timestamp, body
             )
         except Exception as e:
             logger = logging.getLogger("uvicorn.error")
