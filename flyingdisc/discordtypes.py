@@ -302,19 +302,19 @@ class SelectOption(BaseModel):
 
 class Interaction(BaseModel):
     id: int
-    name: Optional[str]
+    name: str | None = None
     application_id: int = None
     type: InteractionType
-    data: Optional[ApplicationCommandInteractionData]
-    guild_id: Optional[int]
-    channel_id: Optional[int]
-    member: Optional[GuildMember]
-    user: Optional[User]
+    data: ApplicationCommandInteractionData | None = None
+    guild_id: int | None = None
+    channel_id: int | None = None
+    member: GuildMember | None = None
+    user: User | None = None
     token: str = None
     version: int = 1
-    message: Optional[Message]
-    locale: Optional[Any]
-    guild_locale: Optional[Any]
+    message: Message | None = None
+    locale: Any | None = None
+    guild_locale: Any | None = None
 
 
 class ApplicationCommandOptionChoice(BaseModel):
