@@ -37,7 +37,7 @@ class DiscordApplicationCommands:
                 r.raise_for_status()
 
 
-    def command(self, isglobal: False, app_cmd: ApplicationCommand):
+    def command(self, app_cmd: ApplicationCommand, isglobal: False):
         def wrap(function):
             def wrapped(*args, **kwargs):
                 response = function(*args, **kwargs)
